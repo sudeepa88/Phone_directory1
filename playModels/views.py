@@ -5,6 +5,10 @@ from django.shortcuts import render,redirect
 from .models import Users
 
 
+
+
+
+
 def firstView(request):
      if request.method=='POST':
           return redirect('polls:myForm')
@@ -18,10 +22,13 @@ def registerView(request):
 
 def myForm(request):
        if request.method=='POST':
-             Users(first_name=request.POST["first_name"],last_name=request.POST["last_name"],ph_number=request.POST["ph_number"]).save()
-             request.session['form_submittes']=True
-             return redirect('polls:thanks_page')
-            
+              ph_number = request.POST.get("ph_number", "")
+              if len(ph_number) != 10:
+                # Redirect to the error page if the condition is not met
+                return render(request,'polls/YourError.html')
+              Users(first_name=request.POST["first_name"],last_name=request.POST["last_name"],ph_number=ph_number).save()
+              request.session['form_submittes']=True
+              return redirect('polls:thanks_page')    
        return render(request,'polls/detail.html')
 
 def thanksView(request):
