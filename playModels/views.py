@@ -3,7 +3,7 @@
 
 from django.shortcuts import render,redirect
 from .models import Users
-from twilio.rest import Client
+
 
 def firstView(request):
      if request.method=='POST':
@@ -18,7 +18,6 @@ def registerView(request):
 
 def myForm(request):
        if request.method=='POST':
-             client=Client("ACe75f30efabbf1cd9a7d93dae63560827","8292b410b265d43b08ede70ff8002bbe") 
              Users(first_name=request.POST["first_name"],last_name=request.POST["last_name"],ph_number=request.POST["ph_number"]).save()
              request.session['form_submittes']=True
              return redirect('polls:thanks_page')
