@@ -1,2 +1,2 @@
-web: gunicorn Phone_directory.wsgi
+web: gunicorn mysite.wsgi
 
